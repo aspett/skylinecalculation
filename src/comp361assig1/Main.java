@@ -21,23 +21,45 @@ public class Main {
 		f.setSize(800,800);
 		f.setVisible(true);
 
+		runAlgorithm(a);
+
 	}
 
-	public List<PointDir> runAlgorithm(List<Triple> input) {
+	public static List<PointDir> runAlgorithm(List<Triple> input) {
 		List<PointDir> result = new ArrayList<>();
 		//Direct
 		if(input.size() == 1) {
 			Triple t = input.get(0);
 			result.add(new PointDir(t.l, t.h, PointDir.LeftRight.LEFT));
 			result.add(new PointDir(t.r, 0, PointDir.LeftRight.RIGHT));
+			System.out.printf("Base case: %s\n", t);
+			return result;
 		}
 
 		//Divide
 		List<PointDir> firstHalf;
 		List<PointDir> secondHalf;
-		if(input.size() % 2 == 0) {
 
-		}
+		List<Triple> firstHalfInput = new ArrayList<>();
+		List<Triple> secondHalfInput = new ArrayList<>();
+		int half;
+		if(input.size() % 2 == 0)
+			half = input.size() / 2;
+		else
+			half = (int) Math.ceil(input.size() / 2);
+
+		for(int i = 0; i < half; i++)
+			firstHalfInput.add(input.get(i));
+		for(int i = half; i < input.size(); i++)
+			secondHalfInput.add(input.get(i));
+
+		System.out.printf("First: %s\n", firstHalfInput);
+		System.out.printf("Second: %s\n", secondHalfInput);
+
+		firstHalf = runAlgorithm(firstHalfInput);
+		secondHalf = runAlgorithm(secondHalfInput);
+
+		System.out.println("RESULTZ?");
 
 		//Conquerrrrrrrrrrrrrrrrrrrrrrrrrrrroooney
 		//Combine firstHalf and secondHalf
